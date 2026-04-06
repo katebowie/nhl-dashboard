@@ -1,4 +1,0 @@
-"0",""
-"0","games_df <- load_schedules(seasons = 2015:2023)"
-"0","options(scipen = 9999) # change from scientific notation"
-"0",""
