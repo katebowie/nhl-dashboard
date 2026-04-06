@@ -39,8 +39,7 @@ def get_standings():
 def get_remaining_schedule(team_abbrev):
     url = f"https://api-web.nhle.com/v1/club-schedule-season/{team_abbrev}/now"
     response = requests.get(url)
-    data = response.json()
-
+    
     if response.status_code != 200 or not response.text:
         print(f"Warning: no data for {team_abbrev}")
         return []
@@ -50,7 +49,7 @@ def get_remaining_schedule(team_abbrev):
     if "games" not in data:
         print(f"{team_abbrev} has no remaining games")
         return []
-
+    
     games = []
     for game in data["games"]:
         if game["gameState"] == "FUT":
@@ -59,7 +58,6 @@ def get_remaining_schedule(team_abbrev):
                 "opponent": game["awayTeam"]["abbrev"] if game["homeTeam"]["abbrev"] == team_abbrev else game["homeTeam"]["abbrev"],
                 "is_home": game["homeTeam"]["abbrev"] == team_abbrev,
                 "date": game["gameDate"]
-
             })
     return games
 
