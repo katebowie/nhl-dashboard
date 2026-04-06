@@ -65,11 +65,9 @@ def get_remaining_schedule(team_abbrev):
 
 
 def get_all_remaining_schedules(df):
-    with ThreadPoolExecutor(max_workers=32) as executor:
-        results = list(executor.map(get_remaining_schedule, df["team_abbrev"]))
-    
     all_games = []
-    for games in results:
+    for abbrev in df["team_abbrev"]:
+        games = get_remaining_schedule(abbrev)
         all_games.extend(games)
     
     schedule_df = pd.DataFrame(all_games)
