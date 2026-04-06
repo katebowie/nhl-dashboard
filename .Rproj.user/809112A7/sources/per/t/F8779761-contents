@@ -1,0 +1,57 @@
+---
+title: "NFL_comp"
+author: "Kate Bowie"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: journal
+    highlight: kate
+    toc: TRUE
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+# Libraries
+```{r}
+
+library(ggplot2)
+library(readxl)
+library(here)
+library(cowplot)
+library(tidyverse)
+library(patchwork)
+library(vegan)
+library(ggpubr)
+library(rstatix)
+library(nflfastR)
+library(ggrepel)
+library(nflreadr)
+library(nflplotR)
+
+```
+
+
+
+# Loading games
+```{r}
+
+games_df <- load_schedules(seasons = 2015:2023)
+options(scipen = 9999) # change from scientific notation
+
+```
+
+
+```{r}
+
+test <- games_df %>% 
+  group_by() %>% 
+  summarise(tot_result = result)
+
+```
+

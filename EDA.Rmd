@@ -1,0 +1,27 @@
+---
+title: "EDA"
+output: html_document
+date: "2025-12-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# libraries
+```{r}
+
+library(hockeyR)
+library(tidyverse)
+library(sportyR) # apparently helpful to plot ice
+
+```
+
+
+
+```{r}
+
+
+
+```
+
