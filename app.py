@@ -1,17 +1,15 @@
-import panel as pn
 import pandas as pd
+import streamlit as st
 from data.fetch_data import get_standings, get_all_remaining_schedules
 from data.process_data import add_team_metrics, add_ranking, simulate_season
 
-pn.extension('tabulator', theme="dark")
-
-# ── Loading screen ──────────────────────────────────────────
-loading = pn.indicators.LoadingSpinner(value=True, size=50)
-main_content = pn.Column(
-    "# NHL Playoff Simulations",
-    "### Loading latest NHL data... this may take up to 30 seconds",
-    loading
+st.set_page_config(
+    page_title="NHL Playoff Simulations",
+    page_icon="🏒",
+    layout="wide"
 )
+
+st.title("NHL Playoff Simulations")
 
 # ── Helper functions ────────────────────────────────────────
 def color_rows(row):
@@ -24,20 +22,10 @@ def color_rows(row):
 
 def make_table(data):
     data = data.copy()
-    # Store raw float in hidden column for coloring
-    data["_prob"] = data["Playoff %"]
-    # Convert to percentage string for display
     data["Playoff %"] = (data["Playoff %"] * 100).round(1).astype(str) + "%"
-    # Apply colors using hidden column
+    display_cols = [c for c in data.columns if c != "WC Rank"]
     styled = data.style.apply(color_rows, axis=1)
-    return pn.widgets.Tabulator(
-    styled,
-    pagination="local",
-    page_size=20,
-    sizing_mode="stretch_width",
-    theme="midnight",
-    hidden_columns=["WC Rank", "_prob"]
-)
+    st.dataframe(styled, column_order=display_cols, use_container_width=True)
 
 def make_display_df(data):
     df = data[[
@@ -49,6 +37,7 @@ def make_display_df(data):
     return df
 
 # ── Data loading ─────────────────────────────────────────────
+@st.cache_data(ttl=3600)
 def load_data():
     df = get_standings()
     df = add_team_metrics(df)
@@ -56,28 +45,39 @@ def load_data():
     schedule = get_all_remaining_schedules(df)
     probs = simulate_season(df, schedule)
     df = df.merge(probs, on="team_abbrev", how="left")
+    return df
 
-    display_df = make_display_df(df)
+with st.spinner("Loading latest NHL data... this may take up to 30 seconds"):
+    df = load_data()
 
-    all_table = make_table(display_df.drop(columns="Division").sort_values("Playoff %", ascending=False))
+display_df = make_display_df(df)
 
-    atlantic_table = make_table(display_df[display_df["Division"] == "Atlantic"].drop(columns="Division").sort_values("Div Rank"))
-    metro_table = make_table(display_df[display_df["Division"] == "Metropolitan"].drop(columns="Division").sort_values("Div Rank"))
-    central_table = make_table(display_df[display_df["Division"] == "Central"].drop(columns="Division").sort_values("Div Rank"))
-    pacific_table = make_table(display_df[display_df["Division"] == "Pacific"].drop(columns="Division").sort_values("Div Rank"))
+# --- Tabs --------------------------------------
+all_tab, atlantic_tab, metro_tab, central_tab, pacific_tab = st.tabs([
+    "All Teams", "Atlantic", "Metropolitan", "Central", "Pacific"
+])
 
-    dashboard = pn.Tabs(
-        ("All Teams", pn.Column("## All Teams", all_table)),
-        ("Atlantic", pn.Column("## Atlantic Division", atlantic_table)),
-        ("Metropolitan", pn.Column("## Metropolitan Division", metro_table)),
-        ("Central", pn.Column("## Central Division", central_table)),
-        ("Pacific", pn.Column("## Pacific Division", pacific_table)),
-        styles={"background": "#1a1a2e", "padding": "20px"}
-    )
+with all_tab:
+    st.subheader("All Teams")
+    data = display_df.drop(columns="Division").sort_values("Playoff %", ascending=False)
+    make_table(data)
 
-    main_content.clear()
-    main_content.append(dashboard)
-    print("Dashboard loaded!")
+with atlantic_tab:
+    st.subheader("Atlantic Division")
+    data = display_df[display_df["Division"] == "Atlantic"].drop(columns="Division").sort_values("Div Rank")
+    make_table(data)
 
-pn.state.onload(load_data)
-main_content.servable()
+with metro_tab:
+    st.subheader("Metropolitan Division")
+    data = display_df[display_df["Division"] == "Metropolitan"].drop(columns="Division").sort_values("Div Rank")
+    make_table(data)
+
+with central_tab:
+    st.subheader("Central Division")
+    data = display_df[display_df["Division"] == "Central"].drop(columns="Division").sort_values("Div Rank")
+    make_table(data)
+
+with pacific_tab:
+    st.subheader("Pacific Division")
+    data = display_df[display_df["Division"] == "Pacific"].drop(columns="Division").sort_values("Div Rank")
+    make_table(data)

@@ -36,7 +36,7 @@ def add_team_metrics(df):
 
 
 # Simulate!
-def simulate_season(df, schedule, n_simulations = 10000):
+def simulate_season(df, schedule, n_simulations = 500):
     strengths = df.set_index("team_abbrev")["strength"].to_dict()
 
     # tracking how many times teams make it
