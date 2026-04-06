@@ -1,0 +1,44 @@
+altair==6.0.0
+attrs==26.1.0
+blinker==1.9.0
+Brotli @ file:///Users/runner/miniforge3/conda-bld/brotli-split_1764017116075/work
+cachetools==7.0.5
+certifi @ file:///home/conda/feedstock_root/build_artifacts/certifi_1772001073725/work/certifi
+charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1775127091311/work
+click==8.3.2
+gitdb==4.0.12
+GitPython==3.1.46
+h2 @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_h2_1756364871/work
+hpack @ file:///home/conda/feedstock_root/build_artifacts/hpack_1737618293087/work
+hyperframe @ file:///home/conda/feedstock_root/build_artifacts/hyperframe_1737618333194/work
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1760286409563/work
+Jinja2==3.1.6
+joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1765794027227/work
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+MarkupSafe==3.0.3
+narwhals==2.19.0
+numpy @ file:///Users/runner/miniforge3/conda-bld/bld/rattler-build_numpy_1773839150/work/dist/numpy-2.4.3-cp314-cp314-macosx_11_0_arm64.whl#sha256=f544bf98e6477967163072aa0526f3da7b84116a4a1f86a96fd1f02ca5c2bf7d
+packaging==26.0
+pandas @ file:///Users/runner/miniforge3/conda-bld/bld/rattler-build_pandas_1774916749/work
+pillow==12.2.0
+protobuf==7.34.1
+pyarrow==23.0.1
+pydeck==0.9.1
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1733217236728/work
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_python-dateutil_1751104122/work
+referencing==0.37.0
+requests @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_requests_1774894783/work
+rpds-py==0.30.0
+scikit-learn @ file:///Users/runner/miniforge3/conda-bld/bld/rattler-build_scikit-learn_1766550871/work/dist/scikit_learn-1.8.0-cp314-cp314-macosx_11_0_arm64.whl#sha256=f97f0c5dee95bffcd8f6853f507cf27cddf27771a0ccf0eb0335633f369d040a
+scipy @ file:///Users/runner/miniforge3/conda-bld/scipy-split_1771879289976/work/dist/scipy-1.17.1-cp314-cp314-macosx_11_0_arm64.whl#sha256=2d10eb95c840ff2757c8f78f99efb7faa4a08c1b63f4033caaafbf08b11135fb
+setuptools==82.0.1
+six @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_six_1753199211/work
+smmap==5.0.3
+streamlit==1.56.0
+tenacity==9.1.4
+threadpoolctl @ file:///home/conda/feedstock_root/build_artifacts/threadpoolctl_1741878222898/work
+toml==0.10.2
+tornado==6.5.5
+typing_extensions==4.15.0
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1767817748113/work
